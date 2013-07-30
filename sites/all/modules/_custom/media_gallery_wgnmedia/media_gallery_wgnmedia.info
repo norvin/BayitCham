@@ -1,0 +1,19 @@
+
+name = WGNMedia Gallery Theme
+description = Provides functions to improve and enhance the functionality and theme specific to WGNMedia Gallery feature.
+package = "WGN Media"
+core = 7.x
+files[] = media_gallery_wgnmedia.module
+files[] = media_gallery_wgnmedia.inc
+files[] = css/media_gallery_wgnmedia.css
+files[] = css/media_gallery_wgnmedia-rtl.css
+stylesheets[all][] = css/media_gallery_wgnmedia.css
+dependencies[] = media_internet
+dependencies[] = media_wgnmedia
+dependencies[] = media_gallery
+
+; Information added by drupal.org packaging script on 2012-09-11
+version = "7.x-1.0-alpha1"
+core = "7.x"
+project = "WGNMedia"
+

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the WGNMedia Gallery Feature feature.
+ */
+
+ include_once 'wgnmedia_gallery_feature.features.inc';

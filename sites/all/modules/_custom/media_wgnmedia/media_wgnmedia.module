@@ -1,0 +1,199 @@
+<?php
+
+/**
+ * @file media_wgnmedia/media_wgnmedia.module
+ *
+ * Media: WGNMedia provides a stream wrapper and formatters for videos provided
+ * by WGNMedia, available at http://vod.wgnmedia.com/.
+ *
+ */
+ 
+// A registry of variable_get defaults.
+include_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'media_wgnmedia') . '/includes/media_wgnmedia.variables.inc';
+
+// Hooks and callbacks for integrating with Styles module for display.
+// @todo Can save a little overhead for people without Styles module by wrapping
+//   this inside a module_exists('styles'). However, is that safe to do in
+//   global context? If not, is there any down side to doing it in hook_init()?
+include_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'media_wgnmedia') . '/includes/media_wgnmedia.styles.inc';
+ 
+// Hooks and callbacks for integrating with File Entity module for display.
+include_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'media_wgnmedia') . '/includes/media_wgnmedia.formatters.inc';
+ 
+/**
+ * Implements hook_media_internet_providers().
+ */
+function media_wgnmedia_media_internet_providers() {
+  $path = drupal_get_path('module', 'media_wgnmedia');
+  return array(
+    'MediaInternetWGNMediaHandler' => array(
+      'title' => 'wgnmedia',
+      'image' => $path . '/images/stream-wgnmedia.png'
+    ),
+  );
+}
+
+/**
+ * Implements hook_stream_wrappers().
+ */
+function media_wgnmedia_stream_wrappers() {
+  return array(
+    'wgnmedia' => array(
+      'name' => t('WGNMedia videos'),
+      'class' => 'MediaWGNMediaStreamWrapper',
+      'description' => t('Videos provided by WGNMedia.'),
+      'type' => STREAM_WRAPPERS_READ_VISIBLE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function media_wgnmedia_theme($existing, $type, $theme, $path) {
+  return array(
+    'media_wgnmedia_preview_style' => array(
+      'variables' => array('style_name' => NULL),
+      'file' => 'media_wgnmedia.theme.inc',
+      'path' => $path . '/includes/themes',
+    ),
+    'media_wgnmedia_field_formatter_styles' => array(
+      'variables' => array('element' => NULL, 'style' => NULL),
+      'file' => 'media_wgnmedia.theme.inc',
+      'path' => $path . '/includes/themes',
+    ),
+    // Note that all the variables after options are now deprecated.
+    'media_wgnmedia_video' => array(
+      'variables' => array('uri' => NULL, 'options' => array()),
+      'file' => 'media_wgnmedia.theme.inc',
+      'path' => $path . '/includes/themes',
+      'template' => 'media-wgnmedia-video',
+    ),
+    'media_wgnmedia_embed' => array(
+      'variables' => array('style_name' => NULL, 'uri' => NULL, 'alt' => NULL, 'title' => NULL),
+      'file' => 'media_wgnmedia.theme.inc',
+      'path' => $path . '/includes/themes',
+    ),
+    'media_wgnmedia_styles' => array(
+      'variables' => array('element' => NULL, 'style' => NULL),
+      'file' => 'media_wgnmedia.theme.inc',
+      'path' => $path . '/includes/themes',
+    ),
+  );
+}
+
+/**
+ * Implements hook_media_parse().
+ *
+ * @todo This hook should be deprecated. Refactor Media module to not call it
+ *   any more, since media_internet should be able to automatically route to the
+ *   appropriate handler.
+ */
+function media_wgnmedia_media_parse($embed_code) {
+  $handler = new MediaInternetWGNMediaHandler($embed_code);
+  return $handler->parse($embed_code);
+}
+
+/**
+ * Implements hook_media_format_form_prepare_alter().
+ */
+function media_wgnmedia_media_format_form_prepare_alter(&$form, &$form_state, $media) {
+  $settings = array('autosubmit' => ($media->type == "video"));
+  drupal_add_js(array('media_format_form' => $settings), 'setting');
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function media_wgnmedia_ctools_plugin_api($owner, $api) {
+  static $api_versions = array(
+    'file_entity' => array(
+      'file_default_displays' => 1,
+    ),
+  );
+  if (isset($api_versions[$owner][$api])) {
+    return array('version' => $api_versions[$owner][$api]);
+  }
+}
+
+/**
+ * Implementation of hook_menu()
+ * 
+ * @return array 
+ */
+function media_wgnmedia_menu() {
+  $items = array();
+  
+  $items['admin/config/media/wgnmedia'] = array(
+    'title' => t('WGNMedia'),
+    'description' => t('Media WGNMedia settings.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('media_wgnmedia_site_admin_settings'),
+    'access arguments' => array('administer media galleries'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  return $items;
+}
+
+/**
+ * Form builder: Configure seasonal background images.
+ *
+ * @ingroup forms
+ * @see system_settings_form()
+ */
+function media_wgnmedia_site_admin_settings() {  
+  $form['wgnmedia_image_bg'] = array(
+      '#type' => 'fieldset', 
+      '#title' => t('WGNMedia Default Image Thumbnail')
+  );
+  
+  if (variable_get('default_media_wgnmedia_image_thumb', '')) {
+    $picfilepath = variable_get('default_media_wgnmedia_image_thumb', '');
+    $picfilepath = (($picfilepath == '') ? (base_path() . drupal_get_path('module', 'media_gallery_wgnmedia') . '/css/images/gallery-bg-hover.png') : $picfilepath);
+    // http://www.victheme.com/blog/drupal-7-themeimagecache-replacement
+    $picture = theme('image_style', array('style_name' => 'img_w120', 'path' => $picfilepath));
+    $form['wgnmedia_image_bg']['current_picture'] = array('#type' => 'item', '#markup' => $picture);
+    $form['wgnmedia_image_bg']['picture_delete'] = array(
+        '#type' => 'checkbox', 
+        '#title' => t('Delete picture'),
+        '#description' => t('Check this box to delete your current picture.')
+    );
+  }
+  else {
+    $form['wgnmedia_image_bg']['picture_delete'] = array(
+        '#type' => 'hidden'
+    );
+  }
+  
+  $form['wgnmedia_image_bg']['picture_upload'] = array(
+      '#type' => 'file',
+      '#title' => t('Image'),
+      '#size' => 40,
+  );
+  
+  $form['#attributes'] = array('enctype' => "multipart/form-data");
+  
+  $form['#submit'][] = 'media_wgnmedia_site_admin_settings_submit';
+
+  return system_settings_form($form);
+}
+
+function media_wgnmedia_site_admin_settings_submit($form, &$form_state) {
+  if ($form_state['values']['picture_delete'] == 1) {
+    $file = file_uri_to_object(variable_get('default_media_wgnmedia_image_thumb', ''), TRUE);
+    file_delete($file);
+    variable_del('default_media_wgnmedia_image_thumb');
+  }
+  if ($_FILES['files']['name']['picture_upload']) {
+    if(variable_get('default_media_wgnmedia_image_thumb', '')){
+      $file = file_uri_to_object(variable_get('default_media_wgnmedia_image_thumb', ''), TRUE);
+      file_delete($file);
+    }
+    $file = file_save_upload('picture_upload', array(), 'public://');
+    $file->status = 1;
+    file_save($file);
+    variable_set('default_media_wgnmedia_image_thumb', 'public://'.$file->filename);
+  }
+}
+

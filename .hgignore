@@ -1,0 +1,9 @@
+syntax: glob
+sites/default/files
+sites/default/settings.php
+*.sql
+*.sql.gz
+error_log
+files
+syntax: regexp
+thumb.db

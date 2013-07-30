@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Media: WGNMedia module.
+ */
+
+/**
+ * Implement hook_install().
+ */
+function media_wgnmedia_install() {
+  return array();
+}
+
+/**
+ * Implement hook_uninstall().
+ */
+function media_wgnmedia_uninstall() {
+  drupal_load('module', 'media_wgnmedia');
+
+  foreach (media_wgnmedia_variable_default() as $variable => $value) {
+    media_wgnmedia_variable_del($variable);
+  }
+  return array(array('success' => TRUE, 'query' => "Deleted all variables in the Media: WGNMedia namespace."));
+}
+

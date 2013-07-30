@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Media: WGNMedia module.
+ */
+
+/**
+ * Implement hook_install().
+ */
+function media_gallery_wgnmedia_install() {
+  $weight = db_select('system', 's')
+              ->fields('s', array('weight'))
+              ->condition('name', 'media_gallery', '=')
+              ->execute()
+              ->fetchField();
+
+  db_update('system')
+    ->fields(array('weight' => $weight +1))
+    ->condition('name', 'media_gallery_wgnmedia', '=')
+    ->execute();
+
+  return array();
+}
+
+

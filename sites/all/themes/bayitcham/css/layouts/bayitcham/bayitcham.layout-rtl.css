@@ -1,0 +1,182 @@
+/*******************************************************************************
+ * _layout.scss
+ *
+ * Styling of the "simple" layout demonstrating the Compass grid extension Susy
+ * and building mobile first layouts.
+ ******************************************************************************/
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000332}}
+.l-header,
+.l-header2,
+.l-main,
+.l-footer {
+  *zoom: 1;
+  max-width: 950px;
+  _width: 950px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Ruby200-x64\/lib\/ruby\/gems\/2\.0\.0\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000338}}
+.l-header:after,
+.l-header2:after,
+.l-main:after,
+.l-footer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000337}}
+.l-main {
+  margin-bottom: 40px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000340}}
+.l-footer {
+  margin-bottom: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000347}}
+.l-region--highlighted,
+.l-region--help,
+.l-region--sidebar-first,
+.l-region--sidebar-second {
+  margin-bottom: 20px;
+}
+
+@media (min-width: 44em) {
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000355}}
+  .l-header,
+  .l-header2,
+  .l-main,
+  .l-footer {
+    max-width: 950px;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000360}}
+  .l-branding {
+    width: 32.20339%;
+    float: right;
+    margin-left: 1.69492%;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000364}}
+  .l-region--header,
+  .l-region--header2 {
+    width: 66.10169%;
+    float: right;
+    margin-left: 0;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000367}}
+  .l-region--navigation {
+    clear: both;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000374}}
+  .sidebar-first .l-content,
+  .sidebar-second .l-content,
+  .two-sidebars .l-content {
+    width: 66.10169%;
+    float: right;
+    margin-left: 1.69492%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000378}}
+  .sidebar-first .l-region--sidebar-first,
+  .sidebar-first .l-region--sidebar-second,
+  .sidebar-second .l-region--sidebar-first,
+  .sidebar-second .l-region--sidebar-second,
+  .two-sidebars .l-region--sidebar-first,
+  .two-sidebars .l-region--sidebar-second {
+    width: 32.20339%;
+    float: right;
+    margin-left: 0;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000381}}
+  .sidebar-first .l-region--sidebar-second,
+  .sidebar-second .l-region--sidebar-second,
+  .two-sidebars .l-region--sidebar-second {
+    clear: right;
+  }
+}
+@media (min-width: 10px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000391}}
+  .l-header,
+  .l-header2,
+  .l-main,
+  .l-footer {
+    max-width: 950px;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\0000396}}
+  .l-branding {
+    width: 15.25424%;
+    float: right;
+    margin-left: 1.69492%;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003100}}
+  .l-region--header,
+  .l-region--header2 {
+    width: 83.05085%;
+    float: right;
+    margin-left: 0;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003105}}
+  .sidebar-first .l-content {
+    width: 66.10169%;
+    float: right;
+    margin-left: 0;
+    float: left;
+    margin-left: 0;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003110}}
+  .sidebar-first .l-region--sidebar-first {
+    width: 32.20339%;
+    float: right;
+    margin-left: 1.69492%;
+    margin-right: 0;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003116}}
+  .sidebar-second .l-content {
+    width: 66.10169%;
+    float: right;
+    margin-left: 1.69492%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003119}}
+  .sidebar-second .l-region--sidebar-second {
+    width: 32.20339%;
+    float: right;
+    margin-left: 0;
+    clear: none;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003126}}
+  .two-sidebars .l-content {
+    width: 66.10169%;
+    float: right;
+    margin-left: 1.69492%;
+    margin-right: 16.94915%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003131}}
+  .two-sidebars .l-region--sidebar-first,
+  .two-sidebars .l-region--sidebar-second {
+    width: 15.25424%;
+    float: right;
+    margin-left: 1.69492%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003134}}
+  .two-sidebars .l-region--sidebar-first {
+    margin-right: -84.74576%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/layouts\/bayitcham\/bayitcham\.layout-rtl\.scss}line{font-family:\00003137}}
+  .two-sidebars .l-region--sidebar-second {
+    float: right;
+    margin-left: 0;
+    clear: none;
+  }
+}

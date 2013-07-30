@@ -1,0 +1,296 @@
+<?php
+  /**
+   * @file main module file
+   */
+  @include_once dirname(__FILE__) . '/includes/md_slider.classes.inc';
+  @include_once dirname(__FILE__) . '/includes/md_slider.utils.inc';
+
+  /**
+   * Implements hook_menu()
+   *
+   */
+  function md_slider_menu()
+  {
+    $items = array();
+    $module_path = drupal_get_path('module', 'md_slider');
+
+    $items['admin/structure/md-slider'] = array(
+      'title' => t('MD Sliders'),
+      'page callback' => 'md_slider_admin_overview',
+      'access arguments' => array('administer md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'description' => 'Manage all sliders',
+    );
+
+    $items['admin/structure/md-slider/create'] = array(
+      'title' => 'Add new MD Slider',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('md_slider_configure_form'),
+      'access arguments' => array('administer md_slider'),
+      'type' => MENU_LOCAL_ACTION,
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+    );
+
+    $items['admin/structure/md-slider/%md_slider_ids'] = array(
+      'description' => 'Edit existing slider and reorganize slides.',
+      'page callback' => 'md_slider_manage',
+      'page arguments' => array(3),
+      'access arguments' => array('administer md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'type' => MENU_NORMAL_ITEM,
+    );
+
+    $items['admin/structure/md-slider/%md_slider_ids/edit'] = array(
+      'title' => 'Edit',
+      'description' => 'Reorganize slides and configure slides.',
+      'page callback' => 'md_slider_manage',
+      'access callback' => 'user_access',
+      'page arguments' => array(3, 4),
+      'access arguments' => array('administer md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 2,
+    );
+
+    $items['admin/structure/md-slider/%md_slider_ids/configure'] = array(
+      'title' => 'configure',
+      'description' => 'Configure existing slider.',
+      'page callback' => 'md_slider_manage',
+      'page arguments' => array(3, 4),
+      'access arguments' => array('administer md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+      'weight' => 0,
+    );
+
+    $items['admin/structure/md-slider/%md_slider_ids/clone'] = array(
+      'description' => 'Create new slider from existing slider.',
+      'page callback' => 'md_slider_clone',
+      'page arguments' => array(3),
+      'access arguments' => array('administer md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'type' => MENU_CALLBACK,
+    );
+
+    $items['admin/structure/md-slider/get-background-image'] = array(
+      'page callback' => 'get_slide_background',
+      'access arguments' => array('administer md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'type' => MENU_CALLBACK,
+    );
+
+    $items['admin/structure/md-slider/get-video-info'] = array(
+      'page callback' => 'get_video_info',
+      'access arguments' => array('administer md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'type' => MENU_CALLBACK,
+    );
+
+    $items['admin/structure/md-slider/delete/confirm'] = array(
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('confirm_delete_form'),
+      'access arguments' => array('delete md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+    );
+
+    $items['admin/structure/md-slider/slide/delete'] = array(
+      'page callback' => 'delete_slide',
+      'access arguments' => array('delete md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'type' => MENU_CALLBACK,
+    );
+
+    $items['admin/structure/md-slider/video-setting'] = array(
+      'page callback' => 'video_setting_form',
+      'access arguments' => array('administer md_slider'),
+      'file path' => $module_path . '/includes',
+      'file' => 'md_slider.admin.inc',
+      'type' => MENU_CALLBACK,
+    );
+
+    return $items;
+  }
+
+  function  md_slider_ids_load($ids)
+  {
+    if (is_numeric($ids)) {
+      $ids = array($ids);
+    } elseif (preg_match('/^([0-9]+,){1,5}[0-9]+$/', $ids)) {
+      $ids = explode(',', $ids);
+    }
+    return $ids;
+  }
+
+  /**
+   * Implements hook_permission()
+   *
+   */
+  function md_slider_permission()
+  {
+    return array(
+      'administer md_slider' => array(
+        'title' => t('Administer Slider'),
+        'description' => t('Allow to create and edit sliders.'),
+      ),
+      'delete md_slider' => array(
+        'title' => t('Delete Slider'),
+        'description' => t('Allow to delete existing sliders.'),
+      ),
+    );
+  }
+
+  /**
+   * Implements hook_theme()
+   *
+   */
+  function md_slider_theme()
+  {
+    $module_path = drupal_get_path('module', 'md_slider');
+    $themes = array();
+
+    $themes['md_slider_overview'] = array(
+      'file' => 'includes/md_slider.admin.inc',
+    );
+
+    $themes['slider_edit_form'] = array(
+      'template' => 'md_slider_edit_form',
+      'path' => $module_path . '/templates/admin',
+      'file' => 'theme.admin.inc',
+    );
+
+    $themes['video_setting_form'] = array(
+      'template' => 'video_setting_form',
+      'path' => $module_path . '/templates/admin',
+    );
+
+    $themes['admin_layers_render'] = array(
+      'template' => 'admin_layers_render',
+      'path' => $module_path . '/templates/admin',
+      'file' => 'theme.admin.inc',
+    );
+
+    $themes['admin_slides_render'] = array(
+      'template' => 'admin_slides_render',
+      'path' => $module_path . '/templates/admin',
+      'file' => 'theme.admin.inc',
+    );
+
+    $themes['front_slide_render'] = array(
+      'template' => 'front_slide_render',
+      'path' => $module_path . '/templates/front',
+      'file' => 'theme.front.inc',
+    );
+
+    $themes['front_layers_render'] = array(
+      'template' => 'front_layers_render',
+      'path' => $module_path . '/templates/front',
+      'file' => 'theme.front.inc',
+    );
+
+    $themes['md_slider_render'] = array(
+      'template' => 'md_slider',
+      'path' => $module_path . '/templates/front',
+      'file' => 'theme.front.inc',
+    );
+
+    return $themes;
+  }
+
+  /**
+   * Implements hook_forms();
+   */
+  function md_slider_forms($fid, $args)
+  {
+    $forms = array();
+    $forms['md_slider_edit_form'] = array(
+      'callback' => 'md_slider_edit_form',
+    );
+
+    $forms['md_slider_configure_form'] = array(
+      'callback' => 'md_slider_configure_form',
+    );
+
+    return $forms;
+  }
+
+  /**
+   * implements hook_block_info();
+   */
+  function md_slider_block_info()
+  {
+    $blocks = array();
+
+    $sliders = MDSlider::get_all();
+
+    if (is_array($sliders)) {
+      foreach ($sliders as $slider) {
+        $blocks[$slider->slid]['info'] = t('MD Slider: ' . $slider->title);
+        $blocks[$slider->slid]['cache'] = DRUPAL_NO_CACHE;
+      }
+    }
+
+    return $blocks;
+  }
+
+  /**
+   * Implements hook_contextual_links_view_alter()
+   *
+   * Add new contextual links
+   */
+  function md_slider_contextual_links_view_alter(&$element, &$items)
+  {
+    if (isset($element['#element']['#block']) && $element['#element']['#block']->module == "md_slider") {
+      $element['#links']['edit-menu'] = array(
+        'title' => 'Edit Slider',
+        'href' => url('admin/structure/md-slider/' . $element['#element']['#block']->delta . '/edit', array('absolute' => TRUE)) . '?destination=' . $_GET['q'],
+        'weight' => -100,
+      );
+
+      $element['#links']['config-menu'] = array(
+        'title' => 'Configure slider',
+        'href' => url('admin/structure/md-slider/' . $element['#element']['#block']->delta, array('absolute' => TRUE)) . '?destination=' . $_GET['q'],
+      );
+    }
+  }
+
+  /**
+   * Implements hook_block_view()
+   */
+  function md_slider_block_view($delta = '')
+  {
+    $content = '';
+    $module_path = drupal_get_path('module', 'md_slider');
+    drupal_add_js(array('inEffects' => MDCommon::$in_effects, 'outEffects' => MDCommon::$out_effects), 'setting');
+    if ($delta != '') {
+      drupal_add_js($module_path . '/js/jquery.touchwipe.js');
+      drupal_add_js($module_path . '/js/mdvideobox.js');
+      drupal_add_js($module_path . '/js/md-slider.js');
+      drupal_add_css($module_path . '/css/animate.css');
+      drupal_add_css($module_path . '/css/md-slider.css');
+
+      $active_theme = variable_get('theme_default');
+      $theme_path = drupal_get_path('theme', $active_theme);
+      if (file_exists($theme_path . '/css/md-slider-style.css')) {
+        drupal_add_css($theme_path . '/css/md-slider-style.css');
+      } else {
+        drupal_add_css($module_path . '/css/md-slider-style.css');
+      }
+
+      $slider = MDSlider::get_by_id($delta);
+      if ($slider != NULL) {
+        $content = theme('md_slider_render', array('slider' => $slider));
+      }
+    }
+
+    return array('content' => $content);
+  }

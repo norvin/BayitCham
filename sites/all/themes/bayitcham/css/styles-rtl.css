@@ -1,0 +1,993 @@
+/*******************************************************************************
+ * style-rtl.scss
+ *
+ * This file shouldn't directly contain any SCSS code, instead it only serves to
+ * combine the SCSS contained in other Sass partials through @import directives.
+ *
+ * BASE............Styling for common HTML and Drupal elements.
+ * LAYOUT..........Styles for the page structure that contain components.
+ * COMPONENTS......Components, their modifiers and sub-components.
+ ******************************************************************************/
+/*******************************************************************************
+ * _utils.scss
+ *
+ * Sass offers come very useful features, these include variables functions and
+ * mixins. Extensions such as Compass and Susy can also be used to provide extra
+ * functions and mixins to be used throughout the theme. This file acts as a
+ * single place for defining these things, which can then be accessed by
+ * importing _utils.scss where required. The following should be defined in this
+ * file:
+ * - Custom Sass mixins for the theme.
+ * - Custom Sass functions for the theme.
+ * - Overriding the default variables provided by extensions such as Compass.
+ * - Defining new variables for:
+ *      - Colors.
+ *      - Font sizes and families.
+ *      - Layout and grid sizing.
+ ******************************************************************************/
+/*******************************************************************************
+<<<<<<< HEAD
+ * _base.scss
+ *
+ * Base styles define the default look for HTML and common Drupal elements.
+ *
+ * These rules will generally be made up of element selectors for HTML elements
+ * such as headings, paragraphs and lists. Common Drupal elements such as form
+ * items, collapsible fieldsets and messages should be included in this partial.
+ *
+ * The styleguide module (http://drupal.org/project/styleguide) gives you a good
+ * overview of Drupal's common elements for styling. By setting a solid baseline
+=======
+ * _base.scss 
+
+ * Base styles define the default look for HTML and common Drupal elements. 
+ *
+ * These rules will generally be made up of element selectors for HTML elements
+ * such as headings, paragraphs and lists. Common Drupal elements such as form 
+ * items, collapsible fieldsets and messages should be included in this partial.
+ *
+ * The styleguide module (http://drupal.org/project/styleguide) gives you a good
+ * overview of Drupals common elements for styling. By setting a solid baseline
+>>>>>>> sandbox/7.x-4.x
+ * before adding any more specific customisations you ensure that as any new
+ * features are added they will be correctly styled without any extra work.
+ ******************************************************************************/
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_base-rtl\.scss}line{font-family:\0000329}}
+body {
+  font-family: "EFTAsaf";
+}
+
+/*******************************************************************************
+ * _layout.scss
+ *
+ * The layout of the major regions (usually, but not necessarily Drupal regions)
+ * that components will be placed within. Layout styles for the theme's
+ * components should not be placed here and should instead be kept with the
+ * relevant SCSS for that component.
+ ******************************************************************************/
+/*******************************************************************************
+ * _components.scss
+ *
+ * Imports more partials that contain full components (modules in SMACSS), their
+ * sub-components and modifiers.
+ *
+ * Components are discrete parts of your page that should sit within the regions
+ * of your layouts. You should try to abstract your components as much as
+ * possible to promote reuse throughout the theme. Components should be flexible
+ * enough to respond to any width and should never rely on context
+ * (e.g. .sidebar-first .component) for styling. This allows modules to be
+ * placed throughout the theme with no risk of them breaking.
+ *
+ * If you find you need to change the look of a component depending on it's
+ * context you should avoid using context based classes at all costs. Instead it
+ * is better to add another "modifier" class to the component to alter the
+ * styling. Again, this promotes reuse.
+ *
+ * Sub-components are the individual parts that make up a component. As a
+ * general rule, adding a class to target a sub-component is a much better
+ * option than using descendant selectors or element selectors. In many cases
+ * sub-components can be made more reusable by making them components in their
+ * own right, so they can then be used within other components.
+ *
+ * Almost everything that doesn't belong in base should be made a component.
+ * Here's some common examples throughout Drupal:
+ *
+ * - Blocks
+ * - Content Types - For example, you may have a generic node component that
+ *      contains sub-components for the submitted by line and links. Specific
+ *      components can then be created for each content type to style the
+ *      specifics of each. Finally, by using entity view modes you can easily
+ *      apply modifications based on the .node-[view-mode] classes.
+ * - Forms - For instance the log in form.
+ * - Views - Each views output style could be made into a component, the content
+ *       of each row should be provided my a view mode styled by it's component
+ *       CSS. Exposed filter forms, views pagers and other views elements are
+ *       also good candidates for components.
+ ******************************************************************************/
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000341}}
+.l-branding {
+  margin-right: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000344}}
+.l-branding img {
+  float: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000348}}
+.l-region.l-region--header .block {
+  float: right;
+  border-left: 1px solid #646464;
+  border-right: 0;
+}
+
+/* http://offshootinc.com/blog/2011/11/23/getting-100-column-height-with-css/ */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000356}}
+.one-sidebar .l-main .l-content {
+  left: 0;
+  right: auto;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000360}}
+.one-sidebar .l-main .l-region--sidebar-first {
+  right: 0;
+  left: auto;
+}
+
+/** Secondary menu */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000369}}
+#block-menu-menu-secondary-menu {
+  padding-left: 13px;
+  padding-right: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000373}}
+#block-menu-menu-secondary-menu ul.menu {
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000376}}
+#block-menu-menu-secondary-menu ul.menu li {
+  float: right;
+}
+
+/** Secondary menu (Nice Menus) */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000380}}
+#block-nice-menus-2 {
+  padding-left: 15px;
+  padding-right: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000383}}
+#block-nice-menus-2 ul.nice-menu.nice-menu-down {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000385}}
+#block-nice-menus-2 ul.nice-menu.nice-menu-down li {
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000390}}
+.ie #block-nice-menus-2 {
+  padding-left: 25px;
+  padding-right: 0;
+}
+
+/** Donate menu */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000396}}
+#block-bch-blocks-donate-button {
+  padding: 0 30px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\0000399}}
+#block-bch-blocks-donate-button #donatebutton-block {
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003102}}
+.firefox #block-bch-blocks-donate-button #donatebutton-block {
+  margin: 14px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003106}}
+#block-bch-blocks-donate-button #donatebutton-block input {
+  background: url("../images/donation-bg.png") no-repeat right 0 transparent;
+  text-align: right;
+  font-family: "EFTAsaf";
+  width: 128px;
+  text-indent: 44px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003113}}
+#block-bch-blocks-donate-button #donatebutton-block input:hover {
+  background-position: left 0;
+}
+
+/** Search menu */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003118}}
+.l-region.l-region--header .block--search .form-item-search-block-form {
+  float: right;
+  margin: 15px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003122}}
+.l-region.l-region--header .block--search .form-item-search-block-form input {
+  padding: 0 30px 0 0;
+  width: 120px;
+  background: url("../images/search-bg.png") no-repeat right 0 scroll transparent;
+  font-family: "EFTAsaf";
+}
+
+/* flags block */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003130}}
+#block-bch-blocks-flags-link .flags-block-wrapper {
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003133}}
+#block-bch-blocks-flags-link .flags-block-wrapper ul.language-switcher-locale-url {
+  padding: 0 11px;
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003137}}
+#block-bch-blocks-flags-link .flags-block-wrapper ul.language-switcher-locale-url li {
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003140}}
+#block-bch-blocks-flags-link .flags-block-wrapper ul.language-switcher-locale-url li.first {
+  padding-left: 11px;
+  padding-right: 0;
+}
+
+/** MEGA MENU STYLES */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003147}}
+.l-region--header2 .block--nice-menus-1 {
+  padding: 0 2px 0 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003150}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li a {
+  font-size: 20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003153}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul {
+  float: right;
+  right: -1px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003158}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li:hover > ul,
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul:hover {
+  z-index: -1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003161}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menuparent + li.menuparent > ul {
+  right: -132px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003164}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menuparent + li.menuparent + li.menuparent > ul {
+  right: -263px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003167}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menuparent + li.menuparent + li.menuparent + li.menuparent > ul {
+  right: -394px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003170}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menuparent + li.menuparent + li.menuparent + li.menuparent + li.menuparent > ul {
+  right: -525px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003173}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menuparent + li.menuparent + li.menuparent + li.menuparent + li.menuparent + li.menuparent > ul {
+  right: -656px;
+}
+
+/*.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-545 > ul{
+  right: -132px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-550 > ul{
+  right: -264px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-555 > ul{
+  right: -395px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-560 > ul{
+  right: -527px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-565 > ul{
+  right: -658px;
+}*/
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003191}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li {
+  float: right;
+  position: relative;
+  width: 196px;
+  clear: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003195}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003200}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper .block .views-exposed-form-branch-and-services-search-view-page #autocomplete ul {
+  left: auto;
+  /* LTR */
+  right: 0;
+  /* LTR */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003205}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper .block .views-exposed-form-branch-and-services-search-view-page .views-exposed-widget {
+  padding: 0 0 0 9px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003209}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper .block .views-exposed-form-branch-and-services-search-view-page #edit-tid-wrapper .throbbing {
+  background-position: 5px -18px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003212}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper .block .views-exposed-form-branch-and-services-search-view-page #edit-tid-wrapper input {
+  width: 231px;
+  background-position: 5px 12px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003216}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper .block .views-exposed-form-branch-and-services-search-view-page #edit-tid-wrapper label {
+  float: right;
+  padding-right: 0;
+  padding-left: 8px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003221}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper .block .views-exposed-form-branch-and-services-search-view-page #edit-tid-wrapper .views-widget {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003226}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper .block .views-exposed-form-branch-and-services-search-view-page #edit-tid-1-wrapper .throbbing {
+  background-position: 5px -18px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003229}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li.menu-635 .menu-attach-block-wrapper .block .views-exposed-form-branch-and-services-search-view-page #edit-tid-1-wrapper input {
+  width: 266px;
+  /* RTL */
+  background-position: 5px 12px;
+}
+
+/**MEGA MENU SONS*/
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003240}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li > a {
+  font-size: 18px;
+}
+
+/**MEGA MENU GRAND SONS*/
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003245}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li > ul {
+  float: right;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003248}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li > ul > li {
+  float: right;
+  border-left: 1px solid #000;
+  border-right: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003253}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li > ul {
+  background: url("../images/grandsons-arrow-bg/rehab-smenu-gs-hov-01.png") no-repeat 0 0 #bee500;
+  right: -1px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003257}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li + li > ul {
+  background: url("../images/grandsons-arrow-bg/rehab-smenu-gs-hov-02.png") no-repeat 0 0 #bee500;
+  right: -197px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003261}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/rehab-smenu-gs-hov-03.png") no-repeat 0 0 #bee500;
+  right: -393px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003265}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li > ul > li + li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/rehab-smenu-gs-hov-04.png") no-repeat 0 0 #bee500;
+  right: -589px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003269}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li > ul > li > ul {
+  background: url("../images/grandsons-arrow-bg/treatment-smenu-gs-hov-bg-01.png") no-repeat 0 0 #00c8bd;
+  right: -1px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003273}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li > ul > li + li > ul {
+  background: url("../images/grandsons-arrow-bg/treatment-smenu-gs-hov-bg-02.png") no-repeat 0 0 #00c8bd;
+  right: -197px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003277}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li > ul > li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/treatment-smenu-gs-hov-bg-03.png") no-repeat 0 0 #00c8bd;
+  right: -393px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003281}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li > ul > li + li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/treatment-smenu-gs-hov-bg-04.png") no-repeat 0 0 #00c8bd;
+  right: -589px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003285}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li > ul > li > ul {
+  background: url("../images/grandsons-arrow-bg/info-smenu-gs-hov-bg-01.png") no-repeat 0 0 #a05fef;
+  right: -1px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003289}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li > ul > li + li > ul {
+  background: url("../images/grandsons-arrow-bg/info-smenu-gs-hov-bg-02.png") no-repeat 0 0 #a05fef;
+  right: -197px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003293}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li > ul > li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/info-smenu-gs-hov-bg-03.png") no-repeat 0 0 #a05fef;
+  right: -393px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003297}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li > ul > li + li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/info-smenu-gs-hov-bg-04.png") no-repeat 0 0 #a05fef;
+  right: -589px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003301}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li + li > ul > li > ul {
+  background: url("../images/grandsons-arrow-bg/heart-smenu-gs-hov-bg-01.png") no-repeat 0 0 #fe664e;
+  right: -1px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003305}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li + li > ul > li + li > ul {
+  background: url("../images/grandsons-arrow-bg/heart-smenu-gs-hov-bg-02.png") no-repeat 0 0 #fe664e;
+  right: -197px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003309}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li + li > ul > li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/heart-smenu-gs-hov-bg-03.png") no-repeat 0 0 #fe664e;
+  right: -393px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003313}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li + li > ul > li + li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/heart-smenu-gs-hov-bg-04.png") no-repeat 0 0 #fe664e;
+  right: -589px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003317}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li + li + li > ul > li > ul {
+  background: url("../images/grandsons-arrow-bg/train-smenu-gs-hov-bg-01.png") no-repeat 0 0 #ffc40e;
+  right: -1px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003321}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li + li + li > ul > li + li > ul {
+  background: url("../images/grandsons-arrow-bg/train-smenu-gs-hov-bg-02.png") no-repeat 0 0 #ffc40e;
+  right: -197px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003325}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li + li + li > ul > li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/train-smenu-gs-hov-bg-03.png") no-repeat 0 0 #ffc40e;
+  right: -393px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003329}}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li + li + li + li + li > ul > li + li + li + li > ul {
+  background: url("../images/grandsons-arrow-bg/train-smenu-gs-hov-bg-04.png") no-repeat 0 0 #ffc40e;
+  right: -589px;
+}
+
+/*.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-218 > ul > li.menu-541 > ul{
+  background: url("../images/grandsons-arrow-bg/rehab-smenu-gs-hov-01.png") no-repeat 0 0 #bee500;
+  right: -1px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-218 > ul > li.menu-542 > ul{
+  background: url("../images/grandsons-arrow-bg/rehab-smenu-gs-hov-02.png") no-repeat 0 0 #bee500;
+  right: -197px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-218 > ul > li.menu-543 > ul{
+  background: url("../images/grandsons-arrow-bg/rehab-smenu-gs-hov-03.png") no-repeat 0 0 #bee500;
+  right: -394px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-218 > ul > li.menu-544 > ul{
+  background: url("../images/grandsons-arrow-bg/rehab-smenu-gs-hov-04.png") no-repeat 0 0 #bee500;
+  right: -590px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-545 > ul > li.menu-546 > ul{
+  background: url("../images/grandsons-arrow-bg/treatment-smenu-gs-hov-bg-01.png") no-repeat 0 0 #00c8bd;
+  right: -1px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-545 > ul > li.menu-547 > ul{
+  background: url("../images/grandsons-arrow-bg/treatment-smenu-gs-hov-bg-02.png") no-repeat 0 0 #00c8bd;
+  right: -198px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-545 > ul > li.menu-548 > ul{
+  background: url("../images/grandsons-arrow-bg/treatment-smenu-gs-hov-bg-03.png") no-repeat 0 0 #00c8bd;
+  right: -394px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-545 > ul > li.menu-549 > ul{
+  background: url("../images/grandsons-arrow-bg/treatment-smenu-gs-hov-bg-04.png") no-repeat 0 0 #00c8bd;
+  right: -591px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-550 > ul > li.menu-551 > ul{
+  background: url("../images/grandsons-arrow-bg/info-smenu-gs-hov-bg-01.png") no-repeat 0 0 #a05fef;
+  right: -1px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-550 > ul > li.menu-552 > ul{
+  background: url("../images/grandsons-arrow-bg/info-smenu-gs-hov-bg-02.png") no-repeat 0 0 #a05fef;
+  right: -197px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-550 > ul > li.menu-553 > ul{
+  background: url("../images/grandsons-arrow-bg/info-smenu-gs-hov-bg-03.png") no-repeat 0 0 #a05fef;
+  right: -394px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-550 > ul > li.menu-554 > ul{
+  background: url("../images/grandsons-arrow-bg/info-smenu-gs-hov-bg-04.png") no-repeat 0 0 #a05fef;
+  right: -590px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-555 > ul > li.menu-559 > ul{
+  background: url("../images/grandsons-arrow-bg/heart-smenu-gs-hov-bg-01.png") no-repeat 0 0 #fe664e;
+  right: -1px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-555 > ul > li.menu-557 > ul{
+  background: url("../images/grandsons-arrow-bg/heart-smenu-gs-hov-bg-02.png") no-repeat 0 0 #fe664e;
+  right: -198px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-555 > ul > li.menu-558 > ul{
+  background: url("../images/grandsons-arrow-bg/heart-smenu-gs-hov-bg-03.png") no-repeat 0 0 #fe664e;
+  right: -394px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-555 > ul > li.menu-556 > ul{
+  background: url("../images/grandsons-arrow-bg/heart-smenu-gs-hov-bg-04.png") no-repeat 0 0 #fe664e;
+  right: -591px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-560 > ul > li.menu-561 > ul{
+  background: url("../images/grandsons-arrow-bg/train-smenu-gs-hov-bg-01.png") no-repeat 0 0 #ffc40e;
+  right: -1px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-560 > ul > li.menu-562 > ul{
+  background: url("../images/grandsons-arrow-bg/train-smenu-gs-hov-bg-02.png") no-repeat 0 0 #ffc40e;
+  right: -197px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-560 > ul > li.menu-563 > ul{
+  background: url("../images/grandsons-arrow-bg/train-smenu-gs-hov-bg-03.png") no-repeat 0 0 #ffc40e;
+  right: -394px;
+}
+.l-region--header2 .block--nice-menus-1 ul.nice-menu.nice-menu-down > li.menu-560 > ul > li.menu-564 > ul{
+  background: url("../images/grandsons-arrow-bg/train-smenu-gs-hov-bg-04.png") no-repeat 0 0 #ffc40e;
+  right: -590px;
+}*/
+/**FOOTER BLOCKS*/
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003417}}
+.block--bch-blocks-footer-icons {
+  float: right;
+  margin-right: 2em;
+  margin-left: 0;
+  border-left: 1px solid #373737;
+  border-right: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003425}}
+.footericons-block-wrapper {
+  margin-top: 3em;
+  margin-bottom: 11.45em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003429}}
+.footericons-block-wrapper .fi-body a div {
+  height: 49px;
+  width: 49px;
+  float: right;
+  margin-right: 13px;
+  margin-left: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003432}}
+.footericons-block-wrapper .fi-body a .fi-rss {
+  background: url("../images/footer-icons-bg.png") no-repeat -147px 0 transparent;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003437}}
+.footericons-block-wrapper .fi-body a .fi-rss span {
+  background: url("../images/footer-icons-bg.png") no-repeat -147px -49px transparent;
+  display: block;
+  opacity: 0;
+  position: relative;
+  transition: opacity 0.3s ease-in-out 0s;
+  height: 100%;
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003441}}
+.footericons-block-wrapper .fi-body a:hover .fi-rss span {
+  opacity: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003444}}
+.footericons-block-wrapper .fi-body a .fi-twit-b {
+  background: url("../images/footer-icons-bg.png") no-repeat -98px 0 transparent;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003447}}
+.footericons-block-wrapper .fi-body a .fi-twit-b span {
+  background: url("../images/footer-icons-bg.png") no-repeat -98px -49px transparent;
+  display: block;
+  opacity: 0;
+  position: relative;
+  transition: opacity 0.3s ease-in-out 0s;
+  height: 100%;
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003451}}
+.footericons-block-wrapper .fi-body a:hover .fi-twit-b span {
+  opacity: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003454}}
+.footericons-block-wrapper .fi-body a .fi-twit-t {
+  background: url("../images/footer-icons-bg.png") no-repeat -49px 0 transparent;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003457}}
+.footericons-block-wrapper .fi-body a .fi-twit-t span {
+  background: url("../images/footer-icons-bg.png") no-repeat -49px -49px transparent;
+  display: block;
+  opacity: 0;
+  position: relative;
+  transition: opacity 0.3s ease-in-out 0s;
+  height: 100%;
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003461}}
+.footericons-block-wrapper .fi-body a:hover .fi-twit-t span {
+  opacity: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003464}}
+.footericons-block-wrapper .fi-body a .fi-face {
+  background: url("../images/footer-icons-bg.png") no-repeat 0 0 transparent;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003467}}
+.footericons-block-wrapper .fi-body a .fi-face span {
+  background: url("../images/footer-icons-bg.png") no-repeat 0 -49px transparent;
+  display: block;
+  opacity: 0;
+  position: relative;
+  transition: opacity 0.3s ease-in-out 0s;
+  height: 100%;
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003471}}
+.footericons-block-wrapper .fi-body a:hover .fi-face span {
+  opacity: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003475}}
+.block--bch-blocks-page-footer-gallery {
+  float: right;
+  border-right: 0;
+  border-left: 1px solid #373737;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003479}}
+.block--bch-blocks-page-footer-gallery .gallery-thumbnails {
+  float: right;
+  margin-right: 0;
+  margin-left: 6px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003484}}
+.block--bch-blocks-page-footer-gallery .gallery-thumbnails.last {
+  margin-left: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003487}}
+.block--bch-blocks-page-footer-gallery .block-inner.clearfix {
+  border-left: 0;
+  border-right: 1px dotted #4d4d4d;
+  padding-left: 0;
+  padding-right: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003493}}
+.block--bch-blocks-page-footer-gallery .fg-title {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003496}}
+.block--bch-blocks-page-footer-gallery .fg-gallery-title-link {
+  float: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003501}}
+.block--menu-menu-footer-menu {
+  float: right;
+  border-left: 1px solid #373737;
+  border-right: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003506}}
+.block--menu-menu-footer-menu ul.menu {
+  padding-right: 3em;
+  padding-left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003511}}
+.block--bch-blocks-footer-credits {
+  padding: 1em 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003514}}
+.firefox .block--bch-blocks-footer-credits {
+  padding: 0.97em 0;
+}
+
+/** CONTACT US PAGE STYLES */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003519}}
+.page-contact .l-content h1 {
+  margin-left: 0;
+  margin-right: 30px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003523}}
+#contact-site-form {
+  margin-left: 0;
+  margin-right: 30px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003526}}
+#contact-site-form .contact-us-image {
+  float: left;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003529}}
+#contact-site-form .form-type-checkbox.form-item-copy {
+  text-align: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003533}}
+#contact-site-form .form-actions input#edit-submit {
+  font-family: "EFTAsaf";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003539}}
+.bch-contactus-page .panel-col-first {
+  float: right;
+  margin-top: 1.75em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003543}}
+.bch-contactus-page .panel-col-last {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003545}}
+.bch-contactus-page .panel-col-last .pane-contact {
+  margin-right: 1.6em;
+  margin-left: auto;
+}
+
+/** HP styles */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003555}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-news-block {
+  float: right;
+  margin-right: 0;
+  margin-left: 0.9%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003559}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-news-block .hpnews-block-title {
+  background: url("../images/hp-news-title-bg.png") no-repeat right top #3a3a3a;
+  padding-left: 0;
+  padding-right: 18%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003563}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-news-block .hpnews-block-title t1 {
+  padding-top: 1em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003569}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-article-block,
+.front .l-region--hp-maincontent .block--views-views-for-hp-page-block {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003573}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-article-block .views-hparticle-block .views-hparticle-blocktitle .views-hparticle-blocktitlebg,
+.front .l-region--hp-maincontent .block--views-views-for-hp-page-block .views-hparticle-block .views-hparticle-blocktitle .views-hparticle-blocktitlebg {
+  background: url("../images/hp-article-title-bg.png") no-repeat right top transparent;
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003577}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-article-block .views-hparticle-block .views-hparticle-blocktitle .t1,
+.front .l-region--hp-maincontent .block--views-views-for-hp-page-block .views-hparticle-block .views-hparticle-blocktitle .t1 {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003583}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-niche-store-block {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003585}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-niche-store-block .view-views-for-hp-niche-store {
+  padding: 0 3.6% 3.6% 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003587}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-niche-store-block .view-views-for-hp-niche-store .hp-nichestore-block-title {
+  background: url("../images/hp-product-title-bg.png") no-repeat right top #3a3a3a;
+  padding-left: 0;
+  padding-right: 18%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003591}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-niche-store-block .view-views-for-hp-niche-store .hp-nichestore-block-title t1 {
+  padding-top: 1em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003596}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-niche-store-block .bch-newsletter-block {
+  padding: 3.6% 3.6% 0 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003599}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-niche-store-block .bch-newsletter-block .bch-newsletter-fields .bch-newsletter-register {
+  background: url("../images/hp-newsletter-title-bg.png") no-repeat left top transparent;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003603}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-niche-store-block .bch-newsletter-block .bch-newsletter-fields .bch-newsletter-fields-wrapper input#email {
+  font-family: "EFTAsaf";
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003606}}
+.front .l-region--hp-maincontent .block--views-views-for-hp-niche-store-block .bch-newsletter-block .bch-newsletter-fields .bch-newsletter-fields-wrapper input#sub-but {
+  font-family: "EFTAsaf";
+}
+
+/** NICHE STORE STYLES */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003620}}
+.view-views-for-niche-store table.views-view-grid .prod-details div {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003623}}
+.view-views-for-niche-store table.views-view-grid .prod-details .prod-desc {
+  margin-right: 0px;
+  margin-left: 3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003627}}
+.view-views-for-niche-store table.views-view-grid .prod-details .prod-price {
+  margin-right: 0px;
+  margin-left: 3px;
+}
+
+/** ORDER FORM STYLES */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003637}}
+.bch-order-form-wrapper {
+  /** JQUERY SELECTBOX OVERRIDES */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003639}}
+.bch-order-form-wrapper .order-details-form .odr-col {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003642}}
+.bch-order-form-wrapper .order-details-form .odr-col.middle {
+  margin-left: 4.5%;
+  padding-right: 4.5%;
+  margin-right: 0;
+  padding-left: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003650}}
+.bch-order-form-wrapper .order-send-flow .odr-icons {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003653}}
+.bch-order-form-wrapper .order-send-flow .order-send-button {
+  float: left;
+  padding-left: 50px;
+  padding-right: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003657}}
+.bch-order-form-wrapper .order-send-flow .order-send-button input {
+  font-family: "EFTAsaf";
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003664}}
+.bch-order-form-wrapper .sbHolder .sbToggle {
+  border-right: 1px solid #d7d7d7;
+  border-left: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003670}}
+.bch-order-comment {
+  text-align: left;
+}
+
+/** Simple content Inner page */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003676}}
+.menu-block-wrapper ul.menu {
+  margin: 0 0 0 35px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003679}}
+.menu-block-wrapper ul.menu li.leaf a {
+  padding-left: 0;
+  padding-right: 64px;
+  background-position: 90% center;
+  /* Firefox */
+  /* LTR */
+  background-position-x: 90%;
+  /* IE and Chrome */
+  /* LTR */
+  border-left: 0;
+  border-right: 5px solid transparent;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003693}}
+.node-type-page .node__content .page-authordate {
+  background: url("../images/page-author-date-bg-he.png") no-repeat right 0 #fafafa;
+  padding: 0 43px 0 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003696}}
+.node-type-page .node__content .page-authordate .pauthor, .node-type-page .node__content .page-authordate .pdate {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003699}}
+.node-type-page .node__content .page-authordate .pauthor {
+  padding-right: 0;
+  padding-left: 5px;
+}
+
+/** GALLERY COLLECTIONS AND NODE MEDIA GALLERY OVERRIDES */
+/** BRANCH AND SERVICES SEARCH RESULT PAGE */
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003720}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-first-column {
+  border-right: none;
+  border-left: 2px solid #f5f5f5;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003723}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-first-column .search-result-title {
+  padding-left: 0;
+  padding-right: 30px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003728}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-first-column .details-first-column-others .dfc {
+  padding-left: 0;
+  padding-right: 50px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003732}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-first-column .details-first-column-others .dfco-street {
+  background: url("../images/search-street-bg.png") no-repeat right 0 transparent scroll;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003735}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-first-column .details-first-column-others .dfco-city {
+  background: url("../images/search-city-bg.png") no-repeat right 0 transparent scroll;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003738}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-first-column .details-first-column-others .dfco-phone {
+  background: url("../images/search-phone-bg.png") no-repeat right 0 transparent scroll;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003741}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-first-column .details-first-column-others .dfco-email {
+  background: url("../images/search-email-bg.png") no-repeat right 0 transparent scroll;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003746}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-second-column {
+  right: auto;
+  left: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003750}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-second-column .search-results-services ul {
+  padding-left: 0;
+  padding-right: 38px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003753}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-second-column .search-results-services ul li {
+  padding: 0 20px 0 10px;
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Program\%20Files\%20\(x86\)\/VertrigoServ\/www\/bayit-cham\/sites\/all\/themes\/bayitcham\/sass\/_components-rtl\.scss}line{font-family:\00003757}}
+.page-branch-and-services-search-view .view-branch-and-services-search-view .views-row .search-result-details .details-second-column .search-results-services ul .avail {
+  background: url("../images/search-service-avail-bg-en.png") no-repeat right 9px transparent scroll;
+}

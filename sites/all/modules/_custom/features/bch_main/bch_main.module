@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the BCH Main feature.
+ */
+
+include_once 'bch_main.features.inc';

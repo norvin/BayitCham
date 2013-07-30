@@ -1,0 +1,84 @@
+<?php
+
+// Create a variable to store the path to this module
+define('MY_MODULE_PATH', drupal_get_path('module', 'media_gallery_wgnmedia'));
+
+/**
+ * Implements hook_theme_registry_alter
+ */
+function media_gallery_wgnmedia_theme_registry_alter(&$theme_registry) {
+  global $theme;
+  
+  // http://drupal.org/node/715160
+  $theme_registry_copy = $theme_registry;
+  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', $theme, MY_MODULE_PATH);
+  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
+
+  // A list of templates the module will provide templates for
+  $hooks = array('node__media_gallery','field__media_gallery');
+  foreach ($hooks as $h) {
+    // Add the key 'theme paths' if it doesn't exist in this theme's registry
+    if (!isset($theme_registry[$h]['theme paths'])) {
+      $theme_registry[$h]['theme paths'] = array();
+    }
+
+    //Shift this module's directory to the top of the theme path list
+    if(is_array($theme_registry[$h]['theme paths'])) {
+      $first_element = array_shift($theme_registry[$h]['theme paths']);
+      if ($first_element) {
+        array_unshift($theme_registry[$h]['theme paths'], $first_element, MY_MODULE_PATH);
+      } else {
+        array_unshift($theme_registry[$h]['theme paths'], MY_MODULE_PATH);
+      }
+    }
+  }
+  
+  // http://snugug.com/musings/override-theme-functions-drupal-7-module
+  // override the media_gallery theme functions
+  $theme_registry['media_gallery_teaser']['theme path'] =  drupal_get_path('module', 'media_gallery_wgnmedia');
+  $theme_registry['media_gallery_teaser']['file'] =  'media_gallery_wgnmedia.inc';
+  $theme_registry['media_gallery_teaser']['includes'][] =  drupal_get_path('module', 'media_gallery_wgnmedia') . '/media_gallery_wgnmedia.inc';
+  $theme_registry['media_gallery_teaser']['function'] = 'media_gallery_wgnmedia_media_gallery_teaser';
+  
+  $theme_registry['media_gallery_media_item_thumbnail']['theme path'] =  drupal_get_path('module', 'media_gallery_wgnmedia');
+  $theme_registry['media_gallery_media_item_thumbnail']['preprocess functions'][] = 'media_gallery_wgnmedia_preprocess_media_gallery_media_item_thumbnail';
+  
+  $theme_registry['media_gallery_item']['theme path'] =  drupal_get_path('module', 'media_gallery_wgnmedia');
+  $theme_registry['media_gallery_item']['file'] =  'media_gallery_wgnmedia.inc';
+  $theme_registry['media_gallery_item']['includes'][] =  drupal_get_path('module', 'media_gallery_wgnmedia') . '/media_gallery_wgnmedia.inc';
+  $theme_registry['media_gallery_item']['function'] = 'media_gallery_wgnmedia_media_gallery_item';
+  
+  // remove the process and preprocess functions added when we override the 'field' template in the hook_theme() function.
+  // which was the cause of the blank $classes in this module's added field.tpl.php.
+  //array_pop($theme_registry['field']['preprocess functions']);
+  //array_pop($theme_registry['field']['process functions']);
+  $theme_registry['field']['preprocess functions'][] = 'media_gallery_preprocess_field';
+  //dsm($theme_registry['field']);
+}
+
+function media_gallery_wgnmedia_theme($existing, $type, $theme, $path) {
+  $items = array(
+    'node__media_gallery' => array(
+      'template' => 'node--media_gallery',
+    ),
+     'field' => array(
+       'template' => 'field--media_gallery',
+     ),
+  );
+  return $items;
+}
+
+// http://drupal.stackexchange.com/a/35679
+function media_gallery_wgnmedia_preprocess_html($vars) {
+  $options = array(
+    'group' => CSS_THEME,
+    'every_page' => TRUE
+  );
+  drupal_add_css(drupal_get_path('module', 'media_gallery_wgnmedia') . '/css/media_gallery_wgnmedia.css', $options);
+  $vars['styles'] = drupal_get_css();
+  
+}
+
+
+
+

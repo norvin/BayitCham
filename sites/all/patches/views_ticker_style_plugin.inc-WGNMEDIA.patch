@@ -1,0 +1,36 @@
+@@ -30,6 +30,7 @@
+ 	'vTicker_pause' => 1000,
+ 	'vTicker_items' => 5,
+ 	'vTicker_direction' => 'up',
++  'vTicker_height' => 0,
+ 	);
+ 	
+ 	return $options;
+@@ -157,6 +158,14 @@
+ 		  'down' => t('Down'),
+ 		),
+ 	);
++
++	$form['vTicker_Options']['vTicker_height'] = array(
++		'#type' => 'textfield',
++	  '#title' => t('Height'),
++	  '#description' => t('Height of the list.'),
++	  '#default_value' => $this->options['vTicker_Options']['vTicker_height'],
++	  '#element_validate' => array('vTicker_height_element_validate'),
++	);
+   }
+ 
+   function validate() 
+@@ -178,3 +187,11 @@
+ 	 form_error($element, t('Enter a positive number'));
+    }
+ }
++
++function vTicker_height_element_validate($element, &$form_state) 
++{
++   if (!is_numeric($element['#value']) || $element['#value']<0 ) 
++   {
++	 form_error($element, t('Enter either zero or a positive number'));
++   }
++}
+\ No newline at end of file

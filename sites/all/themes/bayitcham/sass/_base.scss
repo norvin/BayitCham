@@ -1,0 +1,57 @@
+/*******************************************************************************
+<<<<<<< HEAD
+ * _base.scss
+ *
+ * Base styles define the default look for HTML and common Drupal elements.
+ *
+ * These rules will generally be made up of element selectors for HTML elements
+ * such as headings, paragraphs and lists. Common Drupal elements such as form
+ * items, collapsible fieldsets and messages should be included in this partial.
+ *
+ * The styleguide module (http://drupal.org/project/styleguide) gives you a good
+ * overview of Drupal's common elements for styling. By setting a solid baseline
+=======
+ * _base.scss 
+
+ * Base styles define the default look for HTML and common Drupal elements. 
+ *
+ * These rules will generally be made up of element selectors for HTML elements
+ * such as headings, paragraphs and lists. Common Drupal elements such as form 
+ * items, collapsible fieldsets and messages should be included in this partial.
+ *
+ * The styleguide module (http://drupal.org/project/styleguide) gives you a good
+ * overview of Drupals common elements for styling. By setting a solid baseline
+>>>>>>> sandbox/7.x-4.x
+ * before adding any more specific customisations you ensure that as any new
+ * features are added they will be correctly styled without any extra work.
+ ******************************************************************************/
+
+
+body{
+  margin: 0 auto;
+  font-family: 'Arial';
+  font-size: 16px;
+  color: #5f5f5f;
+  div.l-page{
+    background: url("../images/body-bg.png") repeat-x scroll 0 0 #f5f5f5;
+  }
+  div.lf-page{
+    background: url("../images/body-footer-bg.png") repeat-x scroll 0 bottom transparent;
+  }
+}
+body.front div.l-page{
+  background-color: #fff;
+}
+body.front div.l-main{
+  margin-bottom: 88px;
+}
+body.section-gallery-collections div.l-page,
+body.node-type-media-gallery div.l-page{
+  background-color: transparent;
+}
+
+
+input {
+  font-size: 16px;
+}
+

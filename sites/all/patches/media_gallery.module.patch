@@ -1,0 +1,64 @@
+diff --git a/media_gallery.module b/media_gallery.module
+index 872581b..14ba7f7 100644
+--- a/media_gallery.module
++++ b/media_gallery.module
+@@ -587,7 +587,10 @@ function media_gallery_file_default_displays() {
+          'name' => $display_name,
+          'status' => 1,
+          'settings' => array('image_style' => $image_style),
+          'weight' => $default_weight,
+        );
+      }
+    }
++    // WGNMedia.
++    if (module_exists('media_wgnmedia')) {
++      if (in_array($view_mode, array('media_gallery_lightbox', 'media_gallery_detail'))) {
++        // Video. Omit settings to use media_wgnmedia_video defaults.
++        $display_name = 'video__' . $view_mode . '__media_wgnmedia_video';
++        $default_displays[$display_name] = (object) array(
++          'api_version' => 1,
++          'name' => $display_name,
++          'status' => 1,
++          'weight' => $default_weight,
++        );
++      }
++      else {
++        // Thumbnail.
++        $display_name = 'video__' . $view_mode . '__media_wgnmedia_image';
++        $default_displays[$display_name] = (object) array(
++          'api_version' => 1,
++          'name' => $display_name,
++          'status' => 1,
++          'settings' => array('image_style' => $image_style),
++          'weight' => $default_weight,
++        );
++      }
++    }
+  }
+
+  return $default_displays;
+}
+
+
+diff --git a/media_gallery.module b/media_gallery.module
+index 70f3932..0bef796 100644
+--- a/media_gallery.module
++++ b/media_gallery.module
+@@ -358,12 +358,10 @@ function media_gallery_view($node, $view_mode) {
+       '#weight' => 20,
+       '#attributes' => array('class' => array('colorbox-supplemental-links')),
+     );
+-    // Finally, display the pager, with a high weight so it appears at the
+-    // bottom.
++    // http://drupal.org/node/1079870#comment-5267352
++    // Finally, creating the pager and adding it in the seffix
+     if ($full) {
+       $node->content['media_gallery_pager'] = array(
+-        '#theme' => 'pager',
+-        '#element' => MEDIA_GALLERY_PAGER_ELEMENT,
++        //'#theme' => 'pager',
++        //'#element' => MEDIA_GALLERY_PAGER_ELEMENT,
++        '#suffix' => theme('pager',array('element' => MEDIA_GALLERY_PAGER_ELEMENT)),
+         '#weight' => 2000,
+       );
+     }

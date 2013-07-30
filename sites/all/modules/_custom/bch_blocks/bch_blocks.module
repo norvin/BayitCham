@@ -1,0 +1,371 @@
+﻿<?php
+// $Id$
+
+/**
+ * Implements hook_block_info().
+ */
+function bch_blocks_block_info() {
+  $blocks['flags_link'] = array(
+    'info'        => t('Flags'),
+    'cache'       => DRUPAL_NO_CACHE,
+    'status'      => 1,
+    'region'      => 'header',
+    'visibility'  => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['donate_button'] = array(
+    'info'        => t('Donate Button'),
+    'cache'       => DRUPAL_NO_CACHE,
+    'status'      => 1,
+    'region'      => 'header',
+    'visibility'  => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['footer_icons'] = array(
+    'info'        => t('Footer Icons'),
+    'cache'       => DRUPAL_NO_CACHE,
+    'status'      => 1,
+    'region'      => 'footer',
+    'visibility'  => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['footer_credits'] = array(
+    'info'        => t('Footer Credits'),
+    'cache'       => DRUPAL_NO_CACHE,
+    'status'      => 1,
+    'region'      => 'footer',
+    'visibility'  => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['contact_us_block'] = array(
+    'info'        => t('Contact Us Block'),
+    'cache'       => DRUPAL_NO_CACHE,
+    'status'      => 1,
+    'region'      => '',
+    'visibility'  => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['hp_icons_block'] = array(
+    'info'        => t('HP Icons'),
+    'cache'       => DRUPAL_NO_CACHE,
+    'status'      => 1,
+    'region'      => 'hp_slider',
+    'visibility'  => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['page_footer_gallery'] = array(
+    'info'        => t('Footer Gallery'),
+    'cache'       => DRUPAL_NO_CACHE,
+    'status'      => 1,
+    'region'      => 'footer',
+    'visibility'  => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function bch_blocks_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'flags_link':
+      $block['subject'] = t('');
+      $block['content'] = _block_flags_code();
+    break;
+    case 'donate_button':
+      $block['subject'] = t('');
+      $block['content'] = _block_donation_button_code();
+    break;
+    case 'footer_icons':
+      $block['subject'] = t('');
+      $block['content'] = _block_footer_icons_code();
+    break;
+    case 'footer_credits':
+      $block['subject'] = t('');
+      $block['content'] = _block_footer_credits_code();
+    break;
+    case 'contact_us_block':
+      $block['subject'] = t('');
+      $block['content'] = _block_contact_us_block_code();
+    break;
+    case 'hp_icons_block':
+      $block['subject'] = t('');
+      $block['content'] = _block_hp_icons_code();
+    break;
+    case 'page_footer_gallery':
+      $block['subject'] = t('');
+      $block['content'] = _block_footer_gallery_code();
+    break;
+  }
+  return $block;
+}
+
+/*
+ * Flags Block Code
+ */
+function _block_flags_code() {
+  $output = '';
+  $output .= '<div id="flags-block" class="flags-block-wrapper">';
+  
+  include_once DRUPAL_ROOT . '/includes/language.inc';
+  $block = array();
+  $info = language_types_info();
+  foreach (language_types_configurable(FALSE) as $type) {
+    if (drupal_multilingual()) {
+      $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
+      $links = language_negotiation_get_switch_links($type, $path);
+      
+      if (isset($links->links)) {
+        foreach($links->links as $key=>$value){
+          if($key=='en'){
+            $links->links[$key]['title'] = '<div id="enflag"></div>';
+            $links->links[$key]['html'] = true;
+          }
+          if($key=='he'){
+            $links->links[$key]['title'] = '<div id="heflag"></div>';
+            $links->links[$key]['html'] = true;
+          }
+        }
+        
+        drupal_add_css(drupal_get_path('module', 'locale') . '/locale.css');
+        $class = "language-switcher-{$links->provider}";
+        $variables = array('links' => $links->links, 'attributes' => array('class' => array($class)));
+        $output .= theme('links__locale_block', $variables);
+      }
+    }
+  }
+
+  $output .= '</div>';
+  
+  return $output;
+}
+
+/*
+ * Donation Button Block Code
+ */
+function _block_donation_button_code() {
+  $output = '';
+  $output .= '<div id="donatebutton-block" class="donatebutton-block-wrapper">';
+
+  $output .= '<input type="submit" id="edit-donate-submit" name="DonSub" value="'.t('Donations >').'" class="form-submit" onclick="window.location='."'/user'".'">';
+
+  $output .= '</div>';
+
+  return $output;
+}
+
+/*
+ * Footer Icons Block Code
+ */
+function _block_footer_icons_code() {
+  $output = '';
+  $output .= '<div class="footericons-block-wrapper">';
+
+  $output .= '<div class="fi-title">' . t('Stay up to date:') . '</div>';
+  
+  $output .= '<div class="fi-body">' .
+      l('<div class="fi-rss"><span></span></div>','',array('html'=>TRUE)) .
+      l('<div class="fi-twit-b"><span></span></div>','',array('html'=>TRUE)) .
+      l('<div class="fi-twit-t"><span></span></div>','',array('html'=>TRUE)) .
+      l('<div class="fi-face"><span></span></div>','',array('html'=>TRUE)) .
+    '</div>';
+
+  $output .= '</div>';
+
+  return $output;
+}
+
+/*
+ * Footer Credits Block Code
+ */
+function _block_footer_credits_code() {
+  $output = '';
+  $output .= '<div class="footercredits-block-wrapper">';
+
+  $output .= '<div class="fi-title">' . t('Created by: WGN Media.com') . '</div>';
+
+  $output .= '</div>';
+
+  return $output;
+}
+
+/*
+ * Contact Us Block Code
+ */
+function _block_contact_us_block_code() {
+  $output = '';
+  
+  $output .= 
+          '<div id="bch-contactus">' .
+            '<div class="cuaddress">' .
+              '<div class="contact-text first">' . t('Main Branch') . '</div>' .
+              '<div class="contact-text">' . t('Kahneman 72, Bnei Brak') . '</div>' .
+            '</div>' .
+            '<div class="cuphone">' .
+              '<div class="contact-text first">' . t('Phone:') . '</div>' .
+              '<div class="contact-text">' . t('1599-510-550') . '</div>' .
+            '</div>' .
+            '<div class="cufax">' .
+              '<div class="contact-text first">' . t('Fax:') . '</div>' .
+              '<div class="contact-text">' . t('03-6782644') . '</div>' .
+            '</div>' .
+            '<div class="cuemailadd">' .
+              '<div class="contact-text first">' . t('Email:') . '</div>' .
+              '<div class="contact-text">' . t('!email',array('!email'=>l('office@bayit-cham.org.il','mailto:office@bayit-cham.org.il'))) . '</div>' .
+            '</div>' .
+          '</div>';
+
+  return $output;
+}
+
+
+/*
+ * HP Icons Block Code
+ */
+function _block_hp_icons_code() {
+  $output = '';
+
+  $output .= '     
+          <ul class="hp-icons-wrapper">
+					<li>
+						<div class="icon-item">				
+							<div class="icon-info">
+								<div class="icon-info-front icon-img-1"></div>
+								<div class="icon-info-back">
+									<h3>' . l(t('Heart Family'),'') . '</h3>
+									<p>' . t('Lorem Ipsum Stzrik novelty wave such joy Maram Shaliohm') . '</p>
+								</div>	
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="icon-item">
+							<div class="icon-info">
+								<div class="icon-info-front icon-img-2"></div>
+								<div class="icon-info-back">
+									<h3>' . l(t('Heart Family'),'') . '</h3>
+									<p>' . t('Lorem Ipsum Stzrik novelty wave such joy Maram Shaliohm') . '</p>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="icon-item">
+							<div class="icon-info">
+								<div class="icon-info-front icon-img-3"></div>
+								<div class="icon-info-back">
+									<h3>' . l(t('Heart Family'),'') . '</h3>
+									<p>' . t('Lorem Ipsum Stzrik novelty wave such joy Maram Shaliohm') . '</p>
+								</div>
+							</div>
+						</div>
+					</li>
+          <li>
+						<div class="icon-item">
+							<div class="icon-info">
+								<div class="icon-info-front icon-img-4"></div>
+								<div class="icon-info-back">
+									<h3>' . l(t('Heart Family'),'') . '</h3>
+									<p>' . t('Lorem Ipsum Stzrik novelty wave such joy Maram Shaliohm') . '</p>
+								</div>
+							</div>
+						</div>
+					</li>
+          <li>
+						<div class="icon-item">
+							<div class="icon-info">
+								<div class="icon-info-front icon-img-5"></div>
+								<div class="icon-info-back">
+									<h3>' . l(t('Heart Family'),'') . '</h3>
+									<p>' . t('Lorem Ipsum Stzrik novelty wave such joy Maram Shaliohm') . '</p>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>';
+  
+
+  return $output;
+}
+
+/*
+ * Footer Gallery Block Code
+ */
+function _block_footer_gallery_code() {
+  $result = db_query("SELECT n.nid FROM {node} n LEFT JOIN {node_revision} nr ON n.nid=nr.nid AND n.vid=nr.vid WHERE n.type IN ('media_gallery') ORDER BY n.created DESC LIMIT 1");
+  $noofimgs2dsplay = 8;
+  
+  //http://api.drupal.org/api/drupal/includes!database!database.inc/function/db_query/7
+  if($result->rowCount() == 1){
+    $gallerynid = $result->fetchColumn(0);
+    $n = node_load($gallerynid);
+    $title = $n->title;
+    $imgs = array();
+    if(count($n->media_gallery_media_original) > 0){
+      if(count($n->media_gallery_media_original['und']) > 0){
+        $i=0;
+        $style_name = 'footergalleryimg';
+        $mediafiles = $n->media_gallery_media_original['und'];
+        $cntmedias = count($mediafiles);
+        while($i<$noofimgs2dsplay){
+          if($i<$cntmedias){
+            $j = file_load($mediafiles[$i]['fid']);
+            if($j){
+              if($j->type=='video'){
+                $scheme = file_uri_scheme($j->uri);
+                $origfilename = substr($j->uri,strrpos($j->uri,'/')+1);
+                $p = 'public://media-'.$scheme.'/'.$origfilename.'.jpg';
+                $img = '<div class="video-player-sign"></div>'.theme('image_style', array('style_name' => $style_name, 'path' => $p));
+                $imgs[] = l($img,'node/'.$gallerynid,array('html'=>true));
+              }
+              elseif($j->type=='image'){
+                $img = theme('image_style', array('style_name' => $style_name, 'path' => $j->uri));
+                $imgs[] = l($img,'node/'.$gallerynid,array('html'=>true));
+              }
+            }
+          }
+          else{
+            $imgs[] = theme('image_style', array('style_name' => $style_name, 'path' => variable_get('default_media_wgnmedia_image_thumb', '')));
+          }
+          $i++;
+        }
+        
+      }
+    }
+    else{
+      // use default media wgnmedia pic
+      $i=0;
+      while($i<$noofimgs2dsplay){
+        $img = theme('image_style', array('style_name' => 'footergalleryimg', 'path' => variable_get('default_media_wgnmedia_image_thumb', '')));
+        $imgs[] = l($img,'galleries',array('html'=>true));
+        $i++;
+      }
+    }
+  }
+  else{
+    $title = t('Galleries');
+    // use default media wgnmedia pic
+    $i=0;
+    while($i<$noofimgs2dsplay){
+      $img = theme('image_style', array('style_name' => 'footergalleryimg', 'path' => variable_get('default_media_wgnmedia_image_thumb', '')));
+      $imgs[] = l($img,'galleries',array('html'=>true));
+      $i++;
+    }
+  }
+
+  $output = '';
+  $output .= '<div class="footergallery-block-wrapper">';
+  $output .= '<div class="fg-title-wrapper"><div class="fg-title">'.t('Our gallery').'</div>';
+  $output .= '<div class="fg-gallery-title-link">'.l(t('For the full gallery >'),'galleries',array('html'=>true)).'</div>';
+  // add a clearing div to respect the heights of the fg-title and fg-gallery-title-link
+  // see here http://stackoverflow.com/a/7817313/2053423
+  $output .= '<div style="clear: both;"></div></div>';
+  
+  $output .= '<div id="gallery-thumbs">';
+  $cnt = 0;
+  while($cnt<$noofimgs2dsplay){
+    $class = '';
+    if($cnt==(($noofimgs2dsplay/2)-1))$class=' last';
+    if($cnt==($noofimgs2dsplay-1))$class=' last';
+    $output .= '<div class="gallery-thumbnails'.$class.'">'.$imgs[$cnt].'</div>';
+    $cnt++;
+  }
+  $output .= '</div></div>';
+  
+  return $output;
+}

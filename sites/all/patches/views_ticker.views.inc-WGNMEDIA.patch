@@ -1,0 +1,8 @@
+@@ -42,6 +42,7 @@
+ 		$vTickerOpts .= ' , pause:' . $options['vTicker_Options']['vTicker_pause'];
+ 		$vTickerOpts .= ' , showItems:' . $options['vTicker_Options']['vTicker_items'];
+ 		$vTickerOpts .= ' , direction: "' . $options['vTicker_Options']['vTicker_direction'] . '"';
++    $vTickerOpts .= ' , height: "' . $options['vTicker_Options']['vTicker_height'] . '"';
+ 	}
+ 	else
+ 	{

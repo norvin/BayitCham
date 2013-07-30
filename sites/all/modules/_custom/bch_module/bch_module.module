@@ -1,0 +1,294 @@
+<?php
+
+
+/**
+ * Implements hook_help.
+ *
+ * Displays help and module information.
+ *
+ * @param path 
+ *   Which path of the site we're using to display help
+ * @param arg 
+ *   Array that holds the current path as returned from arg() function
+ */
+function bch_module_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#bch_module":
+      return '<p>'.  t("Custom functions for Bayit-Cham site by WGN Media") .'</p>';
+      break;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function bch_module_permission() {
+  return array(
+      'administer bch admin settings' => array(
+        'title' => t("Administer BCH's custom admin configuration and settings."),
+    ),
+  );  
+}
+
+/**
+ * Implements hook_menu().
+ */
+function bch_module_menu() {
+  $items = array();
+  global $user;
+  
+  $items['admin/content/bchadminsettings'] = array(
+    'title' => t('BCH Site Admin Settings'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bch_module_admin_settings'),
+    'access arguments' => array('administer bch admin settings'),
+    'type' => MENU_LOCAL_TASK | MENU_NORMAL_ITEM,
+  );
+  
+  $items["bch_module/autocomplete/%"] = array(
+    'title' => 'Autocomplete for BCH module',
+    'page callback' => 'bch_module_autocomplete',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Form builder: Configure DBL custom admin settings.
+ *
+ * @ingroup forms
+ * @see system_settings_form()
+ */
+function bch_module_admin_settings() {  
+  $form['contact_us_image'] = array(
+      '#type' => 'fieldset', 
+      '#title' => t('Contact Us Image')
+  );
+  
+  if (variable_get('contact_us_image_thumb', '')) {
+    // http://www.victheme.com/blog/drupal-7-themeimagecache-replacement
+    $picture = theme('image_style', array('style_name' => 'img_w120', 'path' => variable_get('contact_us_image_thumb', '')));
+    $form['contact_us_image']['current_picture'] = array('#type' => 'item', '#markup' => $picture);
+    $form['contact_us_image']['picture_delete'] = array(
+        '#type' => 'checkbox', 
+        '#title' => t('Delete picture'),
+        '#description' => t('Check this box to delete your current picture.')
+    );
+  }
+  else {
+    $form['contact_us_image']['picture_delete'] = array(
+        '#type' => 'hidden'
+    );
+  }
+  
+  $form['contact_us_image']['picture_upload'] = array(
+      '#type' => 'file',
+      '#title' => t('Image'),
+      '#size' => 40,
+  );
+  
+  $form['#attributes'] = array('enctype' => "multipart/form-data");
+  
+  $form['#submit'][] = 'bch_module_admin_settings_submit';
+
+  return system_settings_form($form);
+}
+
+function bch_module_admin_settings_submit($form, &$form_state) {
+  if ($form_state['values']['picture_delete'] == 1) {
+    $file = file_uri_to_object(variable_get('contact_us_image_thumb', ''), TRUE);
+    file_delete($file);
+    variable_del('contact_us_image_thumb');
+  }
+  if ($_FILES['files']['name']['picture_upload']) {
+    if(variable_get('contact_us_image_thumb', '')){
+      $file = file_uri_to_object(variable_get('contact_us_image_thumb', ''), TRUE);
+      file_delete($file);
+    }
+    $file = file_save_upload('picture_upload', array(), 'public://');
+    $file->status = 1;
+    file_save($file);
+    variable_set('contact_us_image_thumb', 'public://'.$file->filename);
+  }
+}
+
+/**
+* Implements hook_form_contact_site_form_alter().
+* This function will add a phone number field to the site-wide contact form,
+* by implementing hook_form_FORM_ID_alter().
+*/
+function bch_module_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
+  drupal_set_breadcrumb(array());
+  $picture = theme('image_style', array('style_name' => 'contact_us_imagestyle', 'path' => variable_get('contact_us_image_thumb', '')));
+  $form['contact_us_image'] = array(
+    '#type' => 'item', 
+    '#markup' => $picture,
+    '#prefix' => '<div class="contact-us-image">',
+    '#suffix' => '</div>',
+  );
+  
+  $form['contact_header_text'] = array(
+    //'#markup' => t('יש עוד דרכים ליצור איתנו קשר:'),
+    '#markup' => t('You can contact us by sending a direct message, or the following measures:'), 
+    '#prefix' => '<div class="contact-header-text">',
+    '#suffix' => '</div>',
+  );
+  
+  // Add a phone number field to the contact form.
+  $form['phone'] = array(
+    '#type' => 'textfield',
+    '#maxlength' => 20,
+    //'#title' => t('טלפון'),
+    '#title' => t('Phone num'),
+  );
+
+  $form['subject'] = array(
+    '#type' => 'hidden',
+  );
+  
+  /*$form['name']['#title'] = t('שם');
+  $form['phone']['#title'] = t('טלפון');
+  $form['mail']['#title'] = t('דוא”ל');
+  $form['message']['#title'] = t('הערה');
+  $form['actions']['submit']['#value'] = t('שלח >');*/
+  
+  $form['name']['#title'] = t('Name:');
+  $form['phone']['#title'] = t('Phone num:');
+  $form['mail']['#title'] = t('Email:');
+  $form['message']['#title'] = t('Comment:');
+  $form['actions']['submit']['#value'] = t('Submit >');
+  
+  // Define the order of the top level elements on the form (include those from contact_site_form().
+  $order = array('contact_header_text', 'contact_us_image', 'name', 'phone', 'mail', 'subject', 'cid', 'message', 'copy', 'actions');
+
+  // Order the elements by changing their #weight property.
+  foreach($order as $key => $field) {
+    $form[$field]['#weight'] = $key;
+  }
+  
+  //dsm($form);
+}
+
+
+
+function bch_module_form_alter(&$form, $form_state) {
+  global $user;
+
+  //drupal_set_message($form['#id']);
+  //dsm($form);
+  switch($form['#id']) {
+    case 'branch-node-form':
+      $bsoptions = array();
+      $bsoptions_new = array();
+      $bsoptions = $form['field_branch_services']['und']['#options'];
+      foreach($bsoptions as $key=>$value){
+        $bsoptions_new[$key] = t($value); // enclosed to t() function the taxonomy name to allow translation
+      }
+      $form['field_branch_services']['und']['#options'] = $bsoptions_new;
+    break;
+    case 'views-exposed-form-branch-and-services-search-view-page':
+      //dsm($form);
+      //dpm($form);
+      //$cf = field_info_field('field_branch_services');
+      $cf = field_info_fields(); // https://drupal.org/node/999122#comment-3918666
+      dsm($cf);
+//      $c = field_info_field_map('field_branch_services');
+//      dsm($c);
+      /*$field_list = bch_module_rewrite_field_list();
+
+      foreach($field_list as $field => $field_data) {
+        if (isset($form[$field])) {
+          $content_field = content_fields($field_data['name']);
+          $db_info = content_database_info($content_field);
+          $result = db_query("SELECT DISTINCT " . $db_info['columns']['value']['column'] . " FROM {" . $db_info['table'] . "}");
+
+          // Dropdown Field
+          if ($field_data['type'] == "dropdown") {
+            $options[""] = "<Any>";
+            while($row = db_fetch_array($result)) {
+              $value = $row[$db_info['columns']['value']['column']];
+              $options[$value] = $value;
+            }
+
+            unset($form[$field]['#size']);
+            $form[$field]['#type'] = "select";
+            $form[$field]['#options'] = $options;
+          }
+
+          // Autocomplete Field
+          else if ($field_data['type'] == "autocomplete") {
+            $form[$field]['#autocomplete_path'] = 'MODULENAME/autocomplete/' . $field;
+          }
+
+          $form[$field]['#default_value'] = $content_field['widget']['default_value']['value'];
+
+          // Change the name of the "Apply" button     
+          $form['submit']['#value'] = t('Search');
+        }
+      } */
+    break;
+  }
+}
+
+
+/**
+ * Implements hook_theme_registry_alter()
+ *   Override the nodehierarchy child links function.
+ *
+ * @param $theme_registry
+ *
+function bch_module_theme_registry_alter(&$theme_registry) {
+  if (!empty($theme_registry['link'])) {
+    $theme_registry['link']['function'] = 'bch_module_link';
+  }
+}
+
+/**
+ * Override theme_link - hide link titles if enabled.
+ *
+ * @param $variables
+ *
+ * @return string
+ *
+function bch_module_link($variables) {
+  //dsm($variables);
+  $variables['options']['attributes']['data-color'] = '#5fb5ef';
+  return '<a href="' . check_plain(url($variables['path'], $variables['options'])) . '"' . drupal_attributes($variables['options']['attributes']) . '>' . ($variables['options']['html'] ? $variables['text'] : check_plain($variables['text'])) . '</a>';
+}
+*/
+
+
+
+  function bch_module_rewrite_field_list() {
+    $fields['qc'] = array(
+      'name' => 'field_branch_services',
+      'type' => 'autocomplete',
+    );
+
+    return $fields;
+  }
+
+
+  function bch_module_autocomplete($field, $value) {
+    $field_list = bch_module_rewrite_field_list();
+    if (count($field_list[$field])) {
+      $matches = array();
+
+      $content_field = content_fields($field_list[$field]['name']);
+
+      $db_info = content_database_info($content_field);
+      $column = $db_info['columns']['value']['column'];  
+      $sql = "SELECT DISTINCT `" . $column . "` FROM {" . $db_info['table'] . "} WHERE `" . $column . "` LIKE '%%%s%%'";
+      $result = db_query($sql, $value);
+      while($row = db_fetch_array($result)) {
+        $matches[$row[$column]] = check_plain($row[$column]);
+      }
+     
+      drupal_json($matches);
+      exit;
+    }
+
+  }
