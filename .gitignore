@@ -221,3 +221,4 @@ sites/*/settings*.php
 sites/default/*
 sites/*/files
 sites/*/private
+/nbproject/private/
